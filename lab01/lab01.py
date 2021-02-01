@@ -22,7 +22,13 @@ def captured_output():
 
 # implement this function
 def is_perfect(n):
-    pass
+    #find all divisitors
+    div = 0
+    for x in range (1, n):
+        if n % x == 0:
+            div += x
+    #add them
+    return div == n
 
 # (3 points)
 def test1():
@@ -40,7 +46,13 @@ def test1():
 
 # implement this function
 def multiples_of_3_and_5(n):
-    pass
+    mult = 0
+    for x in range (n):
+        if x % 3 == 0:
+            mult += x
+        elif x % 5 == 0:
+            mult += x
+    return mult
 
 # (3 points)
 def test2():
@@ -53,7 +65,13 @@ def test2():
 # EXERCISE 3
 #################################################################################
 def integer_right_triangles(p):
-    pass
+    count = 0
+    for a in range(1, p//2):
+        for b in range(1, p//3):
+            c = p - a - b
+            if((a**2 + b**2) == c**2 ):
+                count += 1
+    return count
 
 def test3():
     tc = unittest.TestCase()
@@ -67,32 +85,41 @@ def test3():
 
 # implement this function
 def gen_pattern(chars):
-    pass
+    newChars = chars[::-1]
+    l = len(newChars)
+    for x in range (0,l-1):
+        print(('.'.join(newChars[0:x+1] + (newChars[0:x])[::-1])).center(l*4-3,"."))
+    for x in range (l-1,-1,-1):
+        print(('.'.join(newChars[0:x+1] + (newChars[0:x])[::-1])).center(l*4-3,"."))
+        
+      
 
 def test4():
+    tc = unittest.TestCase()
     with captured_output() as (out,err):
         gen_pattern('@')
-        self.assertEqual(out.getvalue().strip(), '@')
+        tc.assertEqual(out.getvalue().strip(), '@')
     with captured_output() as (out,err):
         gen_pattern('@%')
-        self.assertEqual(out.getvalue().strip(),
+        tc.assertEqual(out.getvalue().strip(),
         """
 ..%..
-%.@.%)
+%.@.%
 ..%..
-""")
-        with captured_output() as (out,err):
-            gen_pattern('ABC')
-            self.assertEqual(out.getvalue().strip(), """
+""".strip())
+    with captured_output() as (out,err):
+        gen_pattern('ABC')
+        tc.assertEqual(out.getvalue().strip(),
+        """
 ....C....
 ..C.B.C..
 C.B.A.B.C
 ..C.B.C..
 ....C....
-""")
-        with captured_output() as (out,err):
-            gen_pattern('#####')
-            self.assertEqual(out.getvalue().strip(),
+""".strip())
+    with captured_output() as (out,err):
+        gen_pattern('#####')
+        tc.assertEqual(out.getvalue().strip(),
                              """
 ........#........
 ......#.#.#......
@@ -103,10 +130,10 @@ C.B.A.B.C
 ....#.#.#.#.#....
 ......#.#.#......
 ........#........
-""")
-        with captured_output() as (out,err):
-            gen_pattern('abcdefghijklmnop')
-            self.assertEqual(out.getvalue().strip(),
+""".strip())
+    with captured_output() as (out,err):
+        gen_pattern('abcdefghijklmnop')
+        tc.assertEqual(out.getvalue().strip(),
 """
 ..............................p..............................
 ............................p.o.p............................
@@ -139,7 +166,7 @@ p.o.n.m.l.k.j.i.h.g.f.e.d.c.b.a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p
 ..........................p.o.n.o.p..........................
 ............................p.o.p............................
 ..............................p..............................
-"""
+""".strip()
 )
 
 #################################################################################
