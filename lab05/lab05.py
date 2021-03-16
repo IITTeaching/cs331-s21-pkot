@@ -97,7 +97,7 @@ class LinkedList:
     def cursor_set(self, idx):
         """sets the cursor to the node at the provided index"""
         ### BEGIN SOLUTION
-        if idx > self.length-1:
+        if idx > self.length:
             raise IndexError
         idx = self._normalize_idx(idx) 
 
@@ -259,7 +259,7 @@ class LinkedList:
         ### BEGIN SOLUTION
         min = self.head.next.val
         cur = self.head.next.next 
-        for i in range(self.length - 1): 
+        for _ in range(self.length - 1): 
             if cur.val < min:  
                 min = cur.val 
             cur = cur.next 
@@ -271,11 +271,11 @@ class LinkedList:
         ### BEGIN SOLUTION
         max = self.head.next.val
         cur = self.head.next.next 
-        for i in range(self.length - 1): 
-            if cur.val > min:  
-                min = cur.val 
+        for _ in range(self.length - 1): 
+            if cur.val > max:  
+                max = cur.val 
             cur = cur.next 
-        return min
+        return max
         ### END SOLUTION
 
     def index(self, value, i=0, j=None):
@@ -379,7 +379,7 @@ class LinkedList:
         temp = self.head.next 
         for i in range(self.length): 
             new.append(temp_list.pop()) 
-        return new_list
+        return new
         ### END SOLUTION
 
 
