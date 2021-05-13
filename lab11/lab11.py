@@ -6,18 +6,63 @@ def quicksort(lst,pivot_fn):
 
 def qsort(lst,low,high,pivot_fn):
     ### BEGIN SOLUTION
+    def hoare(lst,low,high,pivot_fn):
+        pivot = pivot_fn(lst,low,high)
+        l = low
+        h = high
+        while True:
+            while True:
+                if l == high or lst[l] >= pivot:
+                    break
+                l+=1
+
+            while True:
+                if lst[h] <= pivot:
+                    break
+                h-=1
+            if l >= h:
+                return [lst,h]
+            else:
+                temp = lst[l]
+                lst[l] = lst[h]
+                lst[h] = temp
+            
+    if high-low <= 1:
+        if low >=0 and high< len(lst) and low<= high and lst[high] < lst[low]:
+            temp = lst[low]
+            lst[low] = lst[high]
+            lst[high] = temp
+        return lst
+    else:
+        x = hoare(lst,low,high,pivot_fn)
+        lst = x[0]
+        lst = qsort(lst,low,x[1],pivot_fn)
+        lst = qsort(lst,x[1]+1,high,pivot_fn)
+    return lst
     ### END SOLUTION
 
 def pivot_first(lst,low,high):
     ### BEGIN SOLUTION
+    return low
     ### END SOLUTION
 
 def pivot_random(lst,low,high):
     ### BEGIN SOLUTION
+    return random.randint(low, high)
+    
     ### END SOLUTION
 
 def pivot_median_of_three(lst,low,high):
     ### BEGIN SOLUTION
+    frst = lst[low]
+    midd = lst[(low+high)//2]
+    last = lst[high]
+    if (frst>= midd and frst<=last) or (frst>=last and frst<=midd):
+        return low
+    elif (last>=midd and last<=frst) or (last>=frst and last<=midd):
+        return high
+    else:
+        return (low+high)//2
     ### END SOLUTION
 
 ################################################################################
